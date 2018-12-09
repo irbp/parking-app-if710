@@ -6,4 +6,9 @@ class ParkingApp : Application() {
 
     fun getDataRepository() = DataRepository(this)
 
+    override fun onCreate() {
+        super.onCreate()
+
+        DIModule.initialize(this)
+    }
 }
