@@ -49,7 +49,7 @@
             android:background="@drawable/et_bg"
             android:padding="16dp"
             android:textColor="@color/loginFormDetails"
-            android:textCursorDrawable="@drawable/color_cursor"/>
+            android:textCursorDrawable="@drawable/color_cursor" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
