@@ -11,6 +11,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        startActivity(Intent(this@MainActivity, ParkingListActivity::class.java))
+        startActivity(Intent(this@MainActivity, SignInActivity::class.java))
     }
 }

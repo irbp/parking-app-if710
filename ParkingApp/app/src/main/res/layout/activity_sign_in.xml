@@ -1,46 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/bg_login"
         tools:context=".ui.SignInActivity">
 
-    <EditText
-            android:layout_width="wrap_content"
+    <android.support.constraint.Guideline
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" app:layout_constraintGuide_begin="24dp"
+        android:id="@+id/guideline_left"/>
+    
+    <android.support.constraint.Guideline
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:id="@+id/guideline_right"
+        app:layout_constraintGuide_end="24dp"/>
+
+    <ImageView
+        android:id="@+id/img_signin_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_directions_car_white_24dp"
+        android:contentDescription="@string/signin_logo"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="35dp" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/ti_signin_email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        app:layout_constraintTop_toBottomOf="@id/img_signin_logo"
+        android:layout_marginTop="40dp"
+        android:hint="@string/all_email"
+        android:textColorHint="@color/loginFormDetails" >
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/et_signin_email"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
-            android:ems="10"
-            tools:layout_editor_absoluteY="108dp" tools:layout_editor_absoluteX="84dp"
-            android:id="@+id/editTextSignInEmail"
-            android:hint="E-mail"/>
-    <EditText
-            android:layout_width="wrap_content"
+            android:background="@drawable/et_bg"
+            android:padding="16dp"
+            android:textColor="@color/loginFormDetails"
+            android:textCursorDrawable="@drawable/color_cursor"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/ti_signin_password"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        app:layout_constraintTop_toBottomOf="@id/ti_signin_email"
+        android:layout_marginTop="40dp"
+        android:hint="@string/all_password"
+        android:textColorHint="@color/loginFormDetails"
+        app:errorEnabled="true"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/loginFormDetails" >
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/et_signin_password"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textNoSuggestions|textPassword"
-            android:ems="10"
-            tools:layout_editor_absoluteY="177dp" tools:layout_editor_absoluteX="84dp"
-            android:id="@+id/editTextSignInPassword"
-            android:hint="Senha"/>
+            android:inputType="textPassword"
+            android:background="@drawable/et_bg"
+            android:padding="16dp"
+            android:textColor="@color/loginFormDetails"
+            android:textCursorDrawable="@drawable/color_cursor" />
+    </android.support.design.widget.TextInputLayout>
+    
     <Button
-            android:text="Entrar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" tools:layout_editor_absoluteY="230dp"
-            tools:layout_editor_absoluteX="147dp" android:id="@+id/buttonSignIn"/>
-    <Button
-            android:text="Criar Conta"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" tools:layout_editor_absoluteY="291dp"
-            tools:layout_editor_absoluteX="135dp" android:id="@+id/buttonCreate"/>
-    <Button
-            android:text="Entrar com o Facebook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" tools:layout_editor_absoluteY="350dp"
-            tools:layout_editor_absoluteX="93dp" android:id="@+id/buttonFacebookSignIn"/>
-    <Button
-            android:text="Entrar com o Google"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" tools:layout_editor_absoluteY="412dp"
-            tools:layout_editor_absoluteX="101dp" android:id="@+id/buttonGoogleSignIn"/>
+        android:id="@+id/btn_signin_login"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/signin_login"
+        android:textColor="@color/loginFormDetailsMedium"
+        android:textAllCaps="false"
+        android:background="@drawable/btn_bg"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        app:layout_constraintTop_toBottomOf="@id/ti_signin_password" />
+    
+    <View
+        android:id="@+id/footer_line"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="50dp"
+        android:background="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_signin_create_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/signin_no_account"
+        app:layout_constraintTop_toBottomOf="@id/footer_line"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/loginFormDetails"
+        android:clickable="true"
+        android:focusable="true" />
+
+    <View
+        android:id="@+id/line1"
+        android:layout_width="120dp"
+        android:layout_height="1dp"
+        android:background="@color/loginFormDetailsMedium"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintEnd_toStartOf="@id/txt_or"
+        app:layout_constraintTop_toBottomOf="@id/btn_signin_login"
+        app:layout_constraintBottom_toTopOf="@id/txt_signin_facebook" />
+    
+    <TextView
+        android:id="@+id/txt_or"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/signin_or"
+        android:textColor="@color/loginFormDetailsMedium"
+        android:textSize="16sp"
+        app:layout_constraintTop_toTopOf="@id/line1"
+        app:layout_constraintBottom_toBottomOf="@id/line1"
+        app:layout_constraintEnd_toStartOf="@id/line2"
+        app:layout_constraintStart_toEndOf="@id/line1" />
+
+    <View
+        android:id="@+id/line2"
+        android:layout_width="120dp"
+        android:layout_height="1dp"
+        android:background="@color/loginFormDetailsMedium"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_or"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toEndOf="@id/txt_or"
+        app:layout_constraintTop_toTopOf="@id/txt_or" />
+
+    <TextView
+        android:id="@+id/txt_signin_facebook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/signin_login_facebook"
+        android:drawableStart="@drawable/ic_facebook"
+        android:drawablePadding="8dp"
+        app:layout_constraintBottom_toTopOf="@id/footer_line"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        android:layout_marginBottom="16dp"
+        android:padding="8dp"
+        android:textColor="@color/loginFormDetails"
+        android:clickable="true"
+        android:focusable="true" />
+
 </android.support.constraint.ConstraintLayout>
