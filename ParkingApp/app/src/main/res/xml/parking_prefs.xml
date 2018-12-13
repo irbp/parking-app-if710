@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:key="pref_screen">
+        <ListPreference
+                android:entries="@array/pref_values_notification_closure_time"
+                android:entryValues="@array/pref_keys_notification_closure_time"
+                android:key="pref_closure_notification_time"
+                android:title="Notificar estacionamento fechando"
+                android:summary="Selecione uma opção"/>
+        <ListPreference
+                android:key="pref_notification_closure_time"
+                android:title="Taxa de atualização de localização"
+                android:summary="Selecione uma opção"
+                android:entries="@array/pref_values_update"
+                android:entryValues="@array/pref_keys_update" />
+
+</PreferenceScreen>
