@@ -19,23 +19,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Log.d("Result", "Result is chegou")
 
-        disposable = ParkingApi.getAllParkingsAround(8, 8, 2000)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe ({
-                    result ->
-                Log.d("Result", "Result is $result")
-            }, { error ->
-                Log.d("Result", "error is ${error.message}")
-            })
-
-//        startActivity(Intent(this@MainActivity, ParkingListActivity::class.java))
-    }
-
-    override fun onPause() {
-        super.onPause()
-        disposable?.dispose()
+        startActivity(Intent(this@MainActivity, SignInActivity::class.java))
     }
 }
