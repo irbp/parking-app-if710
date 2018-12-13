@@ -6,9 +6,16 @@
     <string name="prompt_password">Password (optional)</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
+    <string name="error_invalid_email">Endereço de e-mail inválido</string>
+    <string name="error_invalid_password">Senha inválida</string>
+    <string name="error_incorrect_password">Senha incorreta</string>
+    <string name="error_field_required">Este campo é obrigatório</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
+    <string name="all_email">E-mail</string>
+    <string name="all_password">Senha</string>
+    <string name="signin_login">Entrar Agora</string>
+    <string name="signin_no_account">Não possui uma conta</string>
+    <string name="signin_login_facebook">Entrar com o Facebook</string>
+    <string name="signin_or">ou</string>
+    <string name="signin_logo">Logo</string>
 </resources>
