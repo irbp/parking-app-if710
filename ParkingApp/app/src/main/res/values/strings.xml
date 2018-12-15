@@ -11,6 +11,7 @@
     <string name="error_incorrect_password">Senha incorreta</string>
     <string name="error_field_required">Este campo é obrigatório</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
+    <string name="all_name">Nome</string>
     <string name="all_email">E-mail</string>
     <string name="all_password">Senha</string>
     <string name="signin_login">Entrar Agora</string>
@@ -19,6 +20,8 @@
     <string name="signin_or">ou</string>
     <string name="signin_logo">Logo</string>
     <string name="pref_notification_closure_time">Notificar estacionamento fechando</string>
+    <string name="accept_the_terms">Aceito os termos</string>
+    <string name="register">Registrar</string>
     <string-array name="pref_values_notification_closure_time">
         <item>Nunca</item>
         <item>Faltando 1 hora</item>
