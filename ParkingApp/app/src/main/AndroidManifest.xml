@@ -42,8 +42,8 @@
 
         <receiver android:name=".receiver.LocationBroadcastReceiver" android:exported="true">
             <intent-filter>
-                <action android:name="br.ufpe.cin.if710.parkingapp.receiver.PROCESS_UPDATES" />
-                <action android:name="br.ufpe.cin.if710.parkingapp.receiver.GEOFENCE_TRANSITIONS" />
+                <action android:name=".receiver.LocationBroadcastReceiver.ACTION_PROCESS_UPDATES" />
+                <action android:name=".receiver.LocationBroadcastReceiver.ACTION_GEOFENCE_TRANSITIONS" />
             </intent-filter>
         </receiver>
 

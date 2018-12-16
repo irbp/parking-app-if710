@@ -11,7 +11,10 @@ import android.os.Bundle
 import android.os.IBinder
 import android.support.v4.content.ContextCompat
 import android.util.Log
+import br.ufpe.cin.if710.parkingapp.DataRepository
+import br.ufpe.cin.if710.parkingapp.ParkingApp
 import br.ufpe.cin.if710.parkingapp.Utils
+import br.ufpe.cin.if710.parkingapp.db.entity.Parking
 import br.ufpe.cin.if710.parkingapp.receiver.LocationBroadcastReceiver
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
@@ -39,6 +42,7 @@ class LocationForegroundService : Service(), GoogleApiClient.OnConnectionFailedL
         private const val UPDATE_INTERVAL: Long = 10 * 1000 // 10 segundos
         private const val FASTEST_UPDATE_INTERVAL: Long = UPDATE_INTERVAL / 2 // 5 segundos
         private const val MAX_WAIT_TIME: Long = UPDATE_INTERVAL * 3 // 30 segundos
+        private const val LOITERING_DELAY = 1 * 60 * 1000 // 1 minuto
     }
 
     @SuppressLint("MissingPermission")
@@ -49,16 +53,16 @@ class LocationForegroundService : Service(), GoogleApiClient.OnConnectionFailedL
         val mLocationRequest = createLocationRequest()
         fusedClient.requestLocationUpdates(mLocationRequest, locationPendingIntent)
         val geofencingClient = LocationServices.getGeofencingClient(this)
-        val geofence = buildGeofence()
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) ==
             PackageManager.PERMISSION_GRANTED) {
+            val parkingGeofences = getParkingGeofences()
             geofencingClient
-                .addGeofences(buildGeofenceRequest(geofence), geofencePendingIntent)
+                .addGeofences(buildGeofenceRequest(parkingGeofences), geofencePendingIntent)
                 .addOnSuccessListener {
-                    Log.d(TAG, "Geofence adicionado com sucesso")
+                    Log.d(TAG, "Geofences adicionados com sucesso")
                 }
                 .addOnFailureListener {
-                    Log.d(TAG, "Falha ao adicionar o geofence")
+                    Log.d(TAG, "Falha ao adicionar os geofences")
                 }
         }
 
@@ -79,10 +83,10 @@ class LocationForegroundService : Service(), GoogleApiClient.OnConnectionFailedL
         PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
-    private fun buildGeofenceRequest(geofence: Geofence?): GeofencingRequest? {
+    private fun buildGeofenceRequest(geofences: List<Geofence>): GeofencingRequest? {
         return GeofencingRequest.Builder()
             .setInitialTrigger(0)
-            .addGeofences(listOf(geofence))
+            .addGeofences(geofences)
             .build()
     }
 
@@ -90,14 +94,27 @@ class LocationForegroundService : Service(), GoogleApiClient.OnConnectionFailedL
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    private fun buildGeofence(): Geofence? {
-        val latitude = -7.94625
-        val longitude = -34.9133
+    private fun getParkingGeofences(): List<Geofence> {
+        val dataRepository = DataRepository(application)
+        val parkings = dataRepository.getAllParkings()
+        val parkingGeofences = mutableListOf<Geofence>()
+        for (parking in parkings) parkingGeofences.add(buildGeofence(parking))
+
+        return parkingGeofences
+    }
+
+    private fun buildGeofence(parking: Parking): Geofence {
+        val latitude = parking.latitude
+        val longitude = parking.longitude
+        val radius = parking.radius
+        val requesId = parking.id.toString()
+
+        Log.d(LocationForegroundService.TAG,  parking.name)
 
         return Geofence.Builder()
-            .setRequestId("1001")
-            .setCircularRegion(latitude, longitude, 600.toFloat())
-            .setLoiteringDelay(60 * 1000)
+            .setRequestId(requesId)
+            .setCircularRegion(latitude, longitude, radius)
+            .setLoiteringDelay(LOITERING_DELAY)
             .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_DWELL)
             .setExpirationDuration(Geofence.NEVER_EXPIRE)
             .build()
@@ -105,10 +122,10 @@ class LocationForegroundService : Service(), GoogleApiClient.OnConnectionFailedL
 
     private fun createLocationRequest(): LocationRequest {
        return LocationRequest().apply {
-            setInterval(UPDATE_INTERVAL)
-            setFastestInterval(FASTEST_UPDATE_INTERVAL)
-            setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-            setMaxWaitTime(MAX_WAIT_TIME)
+           interval = UPDATE_INTERVAL
+           fastestInterval = FASTEST_UPDATE_INTERVAL
+           priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+           maxWaitTime = MAX_WAIT_TIME
         }
     }
 }
