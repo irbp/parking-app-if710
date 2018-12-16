@@ -1,10 +1,17 @@
 package br.ufpe.cin.if710.parkingapp
 
-import android.app.Application
+import android.app.*
+import android.content.Context
+import android.content.pm.PackageManager
+import android.os.Build
+import android.support.design.widget.Snackbar
 import android.support.design.widget.TextInputEditText
+import android.support.v4.app.ActivityCompat
+import android.support.v4.app.NotificationCompat
 import android.text.Editable
 import android.util.Patterns
 import android.widget.EditText
+import android.widget.Toast
 import br.ufpe.cin.if710.parkingapp.utils.inject
 
 object Utils {
@@ -74,6 +81,66 @@ object Utils {
             textInput.error = null
         }
         return false
+    }
+
+    private const val NOTIFICATION_CHANNEL_ID = BuildConfig.APPLICATION_ID + ".channel"
+
+    fun getUniqueId() = ((System.currentTimeMillis() % 10000).toInt())
+
+    fun makeNotification(context: Context, message: String): Notification {
+        val notificationManager = context
+            .getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
+            && notificationManager.getNotificationChannel(NOTIFICATION_CHANNEL_ID) == null) {
+            val name = context.getString(R.string.app_name)
+            val channel = NotificationChannel(NOTIFICATION_CHANNEL_ID,
+                name,
+                NotificationManager.IMPORTANCE_MIN)
+
+            notificationManager.createNotificationChannel(channel)
+        }
+
+//        val intent = MainActivity.newIntent(context.applicationContext, latLng)
+//
+//        val stackBuilder = TaskStackBuilder.create(context)
+//            .addParentStack(MainActivity::class.java)
+//            .addNextIntent(intent)
+//        val notificationPendingIntent = stackBuilder
+//            .getPendingIntent(getUniqueId(), PendingIntent.FLAG_UPDATE_CURRENT)
+
+        val notification = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
+            .setSmallIcon(R.mipmap.ic_launcher)
+            .setContentTitle(message)
+            .setAutoCancel(true)
+            .build()
+
+        return notification
+    }
+
+    fun Any.toast(context: Context, duration: Int = Toast.LENGTH_LONG): Toast {
+        return Toast.makeText(context, this.toString(), duration).apply { show() }
+    }
+
+    fun checkPermissions(context: Context, permission: String): Boolean {
+        val permissionState = ActivityCompat.checkSelfPermission(context, permission)
+        return permissionState == PackageManager.PERMISSION_GRANTED
+    }
+
+    fun requestPermissions(context: Activity, permission: String) {
+        val shouldProvideRationale = ActivityCompat.shouldShowRequestPermissionRationale(context, permission)
+        if (shouldProvideRationale) {
+            Snackbar.make(
+                context.findViewById(R.id.activity_main),
+                context.getString(R.string.permission_rationale),
+                Snackbar.LENGTH_INDEFINITE)
+                .setAction(context.getString(R.string.allow_permission)) {
+                    ActivityCompat.requestPermissions(context, arrayOf(permission), 34)
+                }
+                .show()
+        } else {
+            ActivityCompat.requestPermissions(context, arrayOf(permission), 34)
+        }
     }
 
 }

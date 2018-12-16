@@ -1,5 +1,6 @@
 package br.ufpe.cin.if710.parkingapp.ui
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import br.ufpe.cin.if710.parkingapp.R
@@ -18,6 +19,9 @@ class SignInActivity : AppCompatActivity() {
 
         Utils.bindValidator(et_signin_email, Utils.emailValidator)
         Utils.bindValidator(et_signin_password, Utils.passwordValidator)
-    }
 
+        txt_signin_create_account.setOnClickListener {
+            startActivity(Intent(this@SignInActivity, SignUpActivity::class.java))
+        }
+    }
 }
