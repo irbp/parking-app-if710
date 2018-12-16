@@ -1,6 +1,7 @@
 package br.ufpe.cin.if710.parkingapp
 
 import android.app.Application
+import android.util.Log
 
 class ParkingApp : Application() {
 

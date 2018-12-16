@@ -6,6 +6,12 @@ import android.arch.persistence.room.OnConflictStrategy
 import android.arch.persistence.room.Query
 import br.ufpe.cin.if710.parkingapp.db.entity.User
 
+/*
+* TODO
+* - Change Delete query to @Delete
+* */
+
+
 @Dao
 interface UserDao {
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Strings related to API -->
 <resources>
-    <string name="api_base_url"></string>
-    <string name="parking_id_example"></string>
+    <string name="api_base_url">http://170.254.58.199:5555/</string>
+    <string name="parking_id_example">8TeDsMQ7HYZd67zjkpxm</string>
 </resources>
