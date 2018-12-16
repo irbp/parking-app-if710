@@ -11,6 +11,7 @@
     <string name="error_incorrect_password">Senha incorreta</string>
     <string name="error_field_required">Este campo é obrigatório</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
+    <string name="all_name">Nome</string>
     <string name="all_email">E-mail</string>
     <string name="all_password">Senha</string>
     <string name="signin_login">Entrar Agora</string>
@@ -18,4 +19,31 @@
     <string name="signin_login_facebook">Entrar com o Facebook</string>
     <string name="signin_or">ou</string>
     <string name="signin_logo">Logo</string>
+    <string name="pref_notification_closure_time">Notificar estacionamento fechando</string>
+    <string name="accept_the_terms">Aceito os termos</string>
+    <string name="register">Registrar</string>
+    <string-array name="pref_values_notification_closure_time">
+        <item>Nunca</item>
+        <item>Faltando 1 hora</item>
+        <item>Faltando 30 Minutos</item>
+        <item>Faltando 15 Minutos</item>
+    </string-array>
+    <string-array name="pref_keys_notification_closure_time">
+        <item>never</item>
+        <item>60_minutes</item>
+        <item>30_minutes</item>
+        <item>10_minutes</item>
+    </string-array>
+    <string-array name="pref_values_update">
+        <item>A cada 30 segundos</item>
+        <item>A cada 1 minuto</item>
+        <item>A cada 3 minutos</item>
+        <item>A cada 5 minutos</item>
+    </string-array>
+    <string-array name="pref_keys_update">
+        <item>30_seconds</item>
+        <item>1_minute</item>
+        <item>3_minutes</item>
+        <item>5_minutes</item>
+    </string-array>
 </resources>
