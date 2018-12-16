@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">ParkingApp</string>
     <string name="title_activity_sign_in">Sign In</string>
+    <string name="user_created">Usuário criado com sucesso</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
@@ -22,6 +23,8 @@
     <string name="pref_notification_closure_time">Notificar estacionamento fechando</string>
     <string name="accept_the_terms">Aceito os termos</string>
     <string name="register">Registrar</string>
+    <string name="user_signin_error">Houve um erro ao tentar entrar</string>
+    <string name="user_creation_error">Houve um erro na criação do usuário</string>
     <string-array name="pref_values_notification_closure_time">
         <item>Nunca</item>
         <item>Faltando 1 hora</item>
