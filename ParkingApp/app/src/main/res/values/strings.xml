@@ -50,4 +50,5 @@
         <item>3_minutes</item>
         <item>5_minutes</item>
     </string-array>
+    <string name="title_activity_lol">Lol</string>
 </resources>
