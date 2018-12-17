@@ -16,16 +16,16 @@ class ParkingApp : Application() {
         DataRepository(this)
         DIModule.initialize(this)
 
-        if (Utils.checkPermissions(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-            Intent(this, LocationForegroundService::class.java).also { service ->
-                this.let {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        it.startForegroundService(service)
-                    } else {
-                        it.startService(service)
-                    }
-                }
-            }
-        }
+//        if (Utils.checkPermissions(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+//            Intent(this, LocationForegroundService::class.java).also { service ->
+//                this.let {
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                        it.startForegroundService(service)
+//                    } else {
+//                        it.startService(service)
+//                    }
+//                }
+//            }
+//        }
     }
 }

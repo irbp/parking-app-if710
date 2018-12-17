@@ -77,7 +77,7 @@ class LocationForegroundService : LifecycleService(), GoogleApiClient.OnConnecti
                 NotificationManager.IMPORTANCE_LOW,
                 "ParkingApp Service"
             )
-            startForeground(Utils.getUniqueId(), notification)
+//            startForeground(Utils.getUniqueId(), notification)
         }
     }
 
