@@ -16,22 +16,25 @@ interface ApiService {
     @GET("parkings")
     fun getParkingInside(
         @Query("lng") longitude: Number,
-        @Query("lat") latitude: Number): Observable<Parking>
+        @Query("lat") latitude: Number): Observable<ParkingResponse>
 
     @GET("parkings")
     fun getAllParkingsAround(
         @Query("lng") longitude: Number,
         @Query("lat") latitude: Number,
-        @Query("radius") radius: Number): Observable<Array<Parking>>
+        @Query("radius") radius: Number): Observable<Array<ParkingResponse>>
 
     @GET("parkings/{id}")
-    fun getParkingById(@Path("id") id: String): Observable<Parking>
+    fun getParkingById(@Path("id") id: String): Observable<ParkingResponse>
 
     @POST("users/signup")
     fun signUp(@Body signUp: SignUpRequest): Observable<Response<SignUpResponse>>
 
     @POST("users/signin")
-    fun signIn(@Body signInRequest: SignInRequest): Observable<Response<SignUpResponse>>
+    fun signIn(@Body signInRequest: SignInRequest): Observable<Response<SignInResponse>>
+
+    @GET("users/history")
+    fun getUserHistory(@Header("token") token: String): Observable<HistoryResponse>
 
 
     /**

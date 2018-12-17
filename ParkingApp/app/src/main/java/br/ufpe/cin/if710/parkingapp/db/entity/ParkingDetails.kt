@@ -7,10 +7,10 @@ import java.util.*
 
 @Entity(tableName = "parking_details")
 data class ParkingDetails(
-    @PrimaryKey(autoGenerate = true) var id: Int,
+    @PrimaryKey() var id: String,
     @ColumnInfo(name = "amount_spent") var amountSpent: Float,
     @ColumnInfo(name = "check_in") var checkIn: Date,
     @ColumnInfo(name = "check_out") var checkOut: Date,
-    @ColumnInfo(name = "parking_id") var parkingId: Int,
-    @ColumnInfo(name = "user_id") var userId: Int
+    @ColumnInfo(name = "parking_id") var parkingId: String,
+    @ColumnInfo(name = "user_id") var userId: String
 )

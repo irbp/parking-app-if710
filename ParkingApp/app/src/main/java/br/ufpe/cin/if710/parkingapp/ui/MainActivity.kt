@@ -1,6 +1,7 @@
 package br.ufpe.cin.if710.parkingapp.ui
 
 import android.Manifest
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import br.ufpe.cin.if710.parkingapp.R
@@ -15,6 +16,8 @@ class MainActivity : AppCompatActivity() {
         if (!Utils.checkPermissions(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
             Utils.requestPermissions(this@MainActivity, Manifest.permission.ACCESS_FINE_LOCATION)
         }
+
+        startActivity(Intent(this@MainActivity, SignInActivity::class.java))
 
     }
 }

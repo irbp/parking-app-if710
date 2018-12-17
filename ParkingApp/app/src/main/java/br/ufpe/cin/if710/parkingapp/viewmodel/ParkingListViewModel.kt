@@ -7,11 +7,14 @@ import android.arch.lifecycle.MediatorLiveData
 import android.os.AsyncTask
 import br.ufpe.cin.if710.parkingapp.ParkingApp
 import br.ufpe.cin.if710.parkingapp.db.entity.ParkingDetails
+import br.ufpe.cin.if710.parkingapp.network.api.Session
+import br.ufpe.cin.if710.parkingapp.utils.inject
 
 class ParkingListViewModel(application: Application) : AndroidViewModel(application) {
 
     private val dataRepository = getApplication<ParkingApp>().getDataRepository()
     private val parkingDetailsList = MediatorLiveData<List<ParkingDetails>>()
+    private val session by inject<Session>()
 
     init {
         getAllParkingDetails()

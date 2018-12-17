@@ -7,7 +7,7 @@ import java.util.*
 
 @Entity(tableName = "parking_table")
 data class Parking(
-    @PrimaryKey(autoGenerate = true) var id: Int,
+    @PrimaryKey() var id: String,
     var name: String,
     @ColumnInfo(name = "free_minutes") var freeMinutes: Int = 0,
     @ColumnInfo(name = "hour_price") var hourPrice: Float,
