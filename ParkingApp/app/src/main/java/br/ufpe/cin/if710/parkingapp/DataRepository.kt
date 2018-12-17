@@ -3,19 +3,23 @@ package br.ufpe.cin.if710.parkingapp
 import android.app.Application
 import android.arch.lifecycle.LiveData
 import br.ufpe.cin.if710.parkingapp.db.ParkingAppDatabase
+import br.ufpe.cin.if710.parkingapp.db.dao.ParkingDao
 import br.ufpe.cin.if710.parkingapp.db.dao.ParkingDetailsDao
 import br.ufpe.cin.if710.parkingapp.db.dao.UserDao
+import br.ufpe.cin.if710.parkingapp.db.entity.Parking
 import br.ufpe.cin.if710.parkingapp.db.entity.ParkingDetails
 import br.ufpe.cin.if710.parkingapp.db.entity.User
 
 class DataRepository(application: Application) {
 
     private val parkingDetailsDao: ParkingDetailsDao
+    private val parkingDao: ParkingDao
     private val userDao: UserDao
 
     init {
         val parkingAppDatabase = ParkingAppDatabase.getInstance(application)
         parkingDetailsDao = parkingAppDatabase.parkingDetailsDao()
+        parkingDao = parkingAppDatabase.parkingDao()
         userDao = parkingAppDatabase.userDao()
     }
 
@@ -55,5 +59,14 @@ class DataRepository(application: Application) {
 
     fun deleteUser(id: Int) {
         userDao.deleteEntry(id)
+    }
+
+    // Parking
+    fun getParking(id: Int): Parking {
+        return parkingDao.getParking(id)
+    }
+
+    fun getAllParkings(): List<Parking> {
+        return parkingDao.getAllParkings()
     }
 }

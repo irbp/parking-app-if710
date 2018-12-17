@@ -1,9 +1,10 @@
 package br.ufpe.cin.if710.parkingapp.ui
 
-import android.content.Intent
+import android.Manifest
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import br.ufpe.cin.if710.parkingapp.R
+import br.ufpe.cin.if710.parkingapp.Utils
 
 class MainActivity : AppCompatActivity() {
 
@@ -11,6 +12,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        startActivity(Intent(this@MainActivity, SignInActivity::class.java))
+        if (!Utils.checkPermissions(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+            Utils.requestPermissions(this@MainActivity, Manifest.permission.ACCESS_FINE_LOCATION)
+        }
+
     }
 }

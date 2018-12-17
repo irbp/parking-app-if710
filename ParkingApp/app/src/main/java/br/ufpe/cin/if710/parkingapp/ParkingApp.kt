@@ -10,6 +10,7 @@ class ParkingApp : Application() {
     override fun onCreate() {
         super.onCreate()
 
+        DataRepository(this)
         DIModule.initialize(this)
     }
 }

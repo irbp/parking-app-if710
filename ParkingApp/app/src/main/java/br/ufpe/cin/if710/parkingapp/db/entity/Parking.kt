@@ -13,6 +13,7 @@ data class Parking(
     @ColumnInfo(name = "hour_price") var hourPrice: Float,
     @ColumnInfo(name = "opening_time") var openingTime: Date,
     @ColumnInfo(name = "closing_time") var closingTime: Date,
-    // TODO ajustar para geolocalizacao quando for usar o geofencing
-    var location: String
+    var latitude: Double,
+    var longitude: Double,
+    var radius: Float
 )
