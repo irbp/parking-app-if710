@@ -6,7 +6,6 @@ import android.os.Bundle
 import br.ufpe.cin.if710.parkingapp.R
 import br.ufpe.cin.if710.parkingapp.Utils
 
-
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,6 +16,5 @@ class MainActivity : AppCompatActivity() {
             Utils.requestPermissions(this@MainActivity, Manifest.permission.ACCESS_FINE_LOCATION)
         }
 
-//        startActivity(Intent(this@MainActivity, SignInActivity::class.java))
     }
 }
