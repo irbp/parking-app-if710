@@ -2,8 +2,11 @@ package br.ufpe.cin.if710.parkingapp.service
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
+import android.arch.lifecycle.LifecycleService
+import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
@@ -23,7 +26,7 @@ import com.google.android.gms.location.GeofencingRequest
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 
-class LocationForegroundService : Service(), GoogleApiClient.OnConnectionFailedListener,
+class LocationForegroundService : LifecycleService(), GoogleApiClient.OnConnectionFailedListener,
     GoogleApiClient.ConnectionCallbacks {
     override fun onConnectionFailed(p0: ConnectionResult) {
         Log.d(TAG, "onConnectionFailed")
@@ -67,7 +70,14 @@ class LocationForegroundService : Service(), GoogleApiClient.OnConnectionFailedL
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            startForeground(Utils.getUniqueId(), Utils.makeNotification(applicationContext, "Testando aqui"))
+            val notification = Utils.makeNotification(
+                this,
+                "ParkingApp executando em segundo plano",
+                Utils.BOOT_NOTIFICATION_CHANNEL_ID,
+                NotificationManager.IMPORTANCE_LOW,
+                "ParkingApp Service"
+            )
+            startForeground(Utils.getUniqueId(), notification)
         }
     }
 
@@ -88,10 +98,6 @@ class LocationForegroundService : Service(), GoogleApiClient.OnConnectionFailedL
             .setInitialTrigger(0)
             .addGeofences(geofences)
             .build()
-    }
-
-    override fun onBind(intent: Intent?): IBinder {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     private fun getParkingGeofences(): List<Geofence> {

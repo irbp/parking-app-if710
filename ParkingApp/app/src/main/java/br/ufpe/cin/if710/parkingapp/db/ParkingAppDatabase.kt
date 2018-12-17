@@ -58,7 +58,7 @@ abstract class ParkingAppDatabase : RoomDatabase() {
                 AsyncTask.execute { database.userDao().insert(user) }
             }
             for (parking in DataGenerator.parkingList) {
-                AsyncTask.execute { database.parkingDao().insert(parking) }
+                database.parkingDao().insert(parking)
             }
         }
 

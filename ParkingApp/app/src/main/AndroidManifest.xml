@@ -47,6 +47,13 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name=".receiver.NotificationBroadcastReceiver" android:exported="true">
+            <intent-filter>
+                <action android:name=".receiver.NotificationBroadcastReceiver.ACTION_ACCEPT_PARKING" />
+                <action android:name=".receiver.NotificationBroadcastReceiver.ACTION_REJECT_PARKING" />
+            </intent-filter>
+        </receiver>
+
         <service android:name=".service.LocationForegroundService" />
     </application>
 
