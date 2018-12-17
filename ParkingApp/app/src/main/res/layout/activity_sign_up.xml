@@ -11,14 +11,14 @@
     <android.support.constraint.Guideline
             android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" app:layout_constraintGuide_begin="10dp"
-            android:id="@+id/guideline2_left"/>
+            android:layout_height="wrap_content"
+            android:id="@+id/guideline2_left" app:layout_constraintGuide_begin="24dp"/>
 
     <android.support.constraint.Guideline
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/guideline2_right"
-            app:layout_constraintGuide_end="10dp"/>
+            app:layout_constraintGuide_end="24dp"/>
 
     <ImageView
             android:id="@+id/img_signup_logo"
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:background="@drawable/et_bg"
-                android:padding="5dp"
+                android:padding="16dp"
                 android:textColor="@color/loginFormDetails"
                 android:textCursorDrawable="@drawable/color_cursor" />
     </android.support.design.widget.TextInputLayout>
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:background="@drawable/et_bg"
-                android:padding="5dp"
+                android:padding="16dp"
                 android:textColor="@color/loginFormDetails"
                 android:textCursorDrawable="@drawable/color_cursor" />
     </android.support.design.widget.TextInputLayout>
@@ -92,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:background="@drawable/et_bg"
-                android:padding="5dp"
+                android:padding="16dp"
                 android:textColor="@color/loginFormDetails"
                 android:textCursorDrawable="@drawable/color_cursor" />
     </android.support.design.widget.TextInputLayout>

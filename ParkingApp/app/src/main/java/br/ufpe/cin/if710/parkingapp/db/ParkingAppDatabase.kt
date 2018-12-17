@@ -4,7 +4,9 @@ import android.app.Application
 import android.arch.persistence.db.SupportSQLiteDatabase
 import android.arch.persistence.room.*
 import android.os.AsyncTask
+import android.util.Log
 import br.ufpe.cin.if710.parkingapp.db.converter.DateConverter
+import br.ufpe.cin.if710.parkingapp.db.dao.ParkingDao
 import br.ufpe.cin.if710.parkingapp.db.dao.ParkingDetailsDao
 import br.ufpe.cin.if710.parkingapp.db.dao.UserDao
 import br.ufpe.cin.if710.parkingapp.db.entity.Parking
@@ -16,6 +18,7 @@ import br.ufpe.cin.if710.parkingapp.db.entity.User
 abstract class ParkingAppDatabase : RoomDatabase() {
 
     abstract fun parkingDetailsDao(): ParkingDetailsDao
+    abstract fun parkingDao(): ParkingDao
     abstract fun userDao(): UserDao
 
     companion object {
@@ -29,6 +32,7 @@ abstract class ParkingAppDatabase : RoomDatabase() {
                 return tempInstance
             }
             synchronized(this) {
+                Log.d(DB_NAME, "Inicializando o database")
                 val instance =  Room.databaseBuilder(application,
                     ParkingAppDatabase::class.java, DB_NAME)
                     .allowMainThreadQueries()
@@ -52,6 +56,9 @@ abstract class ParkingAppDatabase : RoomDatabase() {
             }
             for (user in DataGenerator.userList) {
                 AsyncTask.execute { database.userDao().insert(user) }
+            }
+            for (parking in DataGenerator.parkingList) {
+                AsyncTask.execute { database.parkingDao().insert(parking) }
             }
         }
 
