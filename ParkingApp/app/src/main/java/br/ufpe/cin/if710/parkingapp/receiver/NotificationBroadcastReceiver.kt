@@ -19,7 +19,7 @@ class NotificationBroadcastReceiver : BroadcastReceiver() {
         val notificationId = intent?.getIntExtra(Utils.EXTRA_GEOFENCE_NOTIFICATION_ID, 0)
         val notificationManager = context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.cancel(notificationId!!)
-        if (intent.action.equals(ACTION_ACCEPT_PARKING)) {
+        if (intent.action == (ACTION_ACCEPT_PARKING)) {
             // TODO inserir na lista de estacionadas e ir pra activity com a lista
         }
     }

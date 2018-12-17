@@ -3,11 +3,11 @@
           package="br.ufpe.cin.if710.parkingapp">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.READ_PROFILE"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
             android:name=".ParkingApp"
@@ -33,19 +33,25 @@
         <activity android:name=".ui.PrefsMenuActivity">
         </activity>
 
-        <receiver android:name=".receiver.LocationBroadcastReceiver" android:exported="true">
+        <receiver
+                android:name=".receiver.LocationBroadcastReceiver"
+                android:exported="true">
             <intent-filter>
-                <action android:name=".receiver.LocationBroadcastReceiver.ACTION_PROCESS_UPDATES" />
-                <action android:name=".receiver.LocationBroadcastReceiver.ACTION_GEOFENCE_TRANSITIONS" />
+                <action android:name=".receiver.LocationBroadcastReceiver.ACTION_PROCESS_UPDATES"/>
+                <action android:name=".receiver.LocationBroadcastReceiver.ACTION_GEOFENCE_TRANSITIONS"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+                android:name=".receiver.NotificationBroadcastReceiver"
+                android:exported="true">
+            <intent-filter>
+                <action android:name=".receiver.NotificationBroadcastReceiver.ACTION_ACCEPT_PARKING"/>
+                <action android:name=".receiver.NotificationBroadcastReceiver.ACTION_REJECT_PARKING"/>
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".receiver.NotificationBroadcastReceiver" android:exported="true">
-            <intent-filter>
-                <action android:name=".receiver.NotificationBroadcastReceiver.ACTION_ACCEPT_PARKING" />
-                <action android:name=".receiver.NotificationBroadcastReceiver.ACTION_REJECT_PARKING" />
-            </intent-filter>
-        </receiver>
+        <activity android:name=".ui.SuggestParkingActivity">
+        </activity>
     </application>
 
 </manifest>

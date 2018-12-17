@@ -3,49 +3,74 @@
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/parkingDetailsItem"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="368dp"
+        android:layout_height="72dp"
         android:layout_margin="8dp"
         card_view:cardBackgroundColor="@color/colorPrimary"
         card_view:cardElevation="6dp"
         card_view:cardCornerRadius="6dp">
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
         <TextView
-                android:id="@+id/txtParkingId"
-                android:layout_width="match_parent"
+                android:id="@+id/txtParkingName"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:padding="1dp"
+                android:textSize="20sp"
                 android:textColor="#FFFFFF"
-                android:textSize="18sp"/>
+                card_view:layout_constraintStart_toStartOf="@id/guideline_left"
+                card_view:layout_constraintEnd_toStartOf="@id/guideline_right"
+                card_view:layout_constraintBottom_toTopOf="@id/guideline_bottom_title" />
 
         <TextView
                 android:id="@+id/txtAmountSpent"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:padding="1dp"
-                android:textColor="#FFFFFF"/>
-
-        <TextView
-                android:id="@+id/txtCheckIn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="1dp"
-                android:textColor="#FFFFFF"/>
+                android:textSize="14sp"
+                android:textColor="#FFFFFF"
+                card_view:layout_constraintEnd_toStartOf="@id/guideline_right"
+                card_view:layout_constraintBottom_toBottomOf="@id/txtParkingName" />
 
         <TextView
                 android:id="@+id/txtCheckOut"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:padding="1dp"
-                android:textColor="#FFFFFF"/>
+                android:textSize="14sp"
+                android:textColor="#FFFFFF"
+                card_view:layout_constraintStart_toStartOf="@id/guideline_left"
+                card_view:layout_constraintEnd_toStartOf="@id/guideline_right"
+                card_view:layout_constraintBottom_toTopOf="@id/guideline_bottom_subtitle" />
 
-    </LinearLayout>
+        <android.support.constraint.Guideline
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" card_view:layout_constraintGuide_begin="16dp"
+                android:id="@+id/guideline_left"/>
+        <android.support.constraint.Guideline
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/guideline_right" card_view:layout_constraintGuide_end="16dp"/>
+        <android.support.constraint.Guideline
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" card_view:layout_constraintGuide_begin="16dp"
+                android:id="@+id/guideline_top"/>
+        <android.support.constraint.Guideline
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" card_view:layout_constraintGuide_begin="34dp"
+                android:id="@+id/guideline_bottom_title"/>
+        <android.support.constraint.Guideline
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" card_view:layout_constraintGuide_begin="56dp"
+                android:id="@+id/guideline_bottom_subtitle"/>
+
+    </android.support.constraint.ConstraintLayout>
 
 
 </android.support.v7.widget.CardView>

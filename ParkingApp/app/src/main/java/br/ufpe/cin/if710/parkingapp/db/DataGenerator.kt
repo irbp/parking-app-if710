@@ -17,6 +17,7 @@ class DataGenerator {
 
             parkingsDetails.add(
                 ParkingDetails(
+                    "Shopping Recife",
                     "1",
                     15.00F,
                     Date(1279879379L),
@@ -28,6 +29,7 @@ class DataGenerator {
 
             parkingsDetails.add(
                 ParkingDetails(
+                    "Shopping Recife",
                     "2",
                     32.00F,
                     Date(1271879379L),
@@ -39,6 +41,7 @@ class DataGenerator {
 
             parkingsDetails.add(
                 ParkingDetails(
+                    "Shopping RioMar",
                     "3",
                     31.00F,
                     Date(1271879579L),
@@ -50,6 +53,7 @@ class DataGenerator {
 
             parkingsDetails.add(
                 ParkingDetails(
+                    "Shopping Tacaruna",
                     "4",
                     00.00F,
                     Date(1271279579L),
@@ -61,6 +65,7 @@ class DataGenerator {
 
             parkingsDetails.add(
                 ParkingDetails(
+                    "Shopping Recife",
                     "5",
                     00.00F,
                     Date(1271878379L),
