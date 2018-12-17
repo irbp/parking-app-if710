@@ -30,14 +30,11 @@ class SignInActivity : AppCompatActivity() {
         }
 
         btn_signin_login.setOnClickListener {
-            viewModel.signIn(et_signin_email.text, et_signin_password.text)
+            viewModel
+                .signIn(et_signin_email.text, et_signin_password.text)
                 .subscribe(
-                    { response ->
-                        if (response.isSuccessful) {
-                            startActivity(Intent(this@SignInActivity, ParkingListActivity::class.java))
-                        } else {
-                            toast(response.code())
-                        }
+                    {
+                        startActivity(Intent(this@SignInActivity, ParkingListActivity::class.java))
                     },
                     {
                         toast(getString(R.string.user_signin_error))
