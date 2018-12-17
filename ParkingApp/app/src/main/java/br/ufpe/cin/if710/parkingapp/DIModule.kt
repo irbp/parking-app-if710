@@ -9,6 +9,8 @@ object DIModule {
     fun initialize(application: Application) {
         provideSingleton { application }
         provideSingleton { ApiService.create() }
-        provideSingleton { Session()}
+        provideSingleton { Session() }
+        provideSingleton { DataRepository(application) }
+
     }
 }

@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import br.ufpe.cin.if710.parkingapp.R
 import br.ufpe.cin.if710.parkingapp.Utils
 import br.ufpe.cin.if710.parkingapp.viewmodel.SignInViewModel
@@ -35,6 +36,7 @@ class SignInActivity : AppCompatActivity() {
                 .subscribe(
                     {
                         startActivity(Intent(this@SignInActivity, ParkingListActivity::class.java))
+                        Log.d("SessionTest", "Chegou")
                     },
                     {
                         toast(getString(R.string.user_signin_error))

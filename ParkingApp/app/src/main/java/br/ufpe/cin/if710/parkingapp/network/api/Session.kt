@@ -1,6 +1,10 @@
 package br.ufpe.cin.if710.parkingapp.network.api
 
+import android.util.Log
+import br.ufpe.cin.if710.parkingapp.DataRepository
+import br.ufpe.cin.if710.parkingapp.db.entity.User
 import br.ufpe.cin.if710.parkingapp.network.api.model.SignInRequest
+import br.ufpe.cin.if710.parkingapp.network.api.model.SignInResponse
 import br.ufpe.cin.if710.parkingapp.network.api.model.UserSession
 import br.ufpe.cin.if710.parkingapp.utils.inject
 import io.reactivex.Observable
@@ -10,10 +14,10 @@ import java.security.spec.InvalidParameterSpecException
 
 enum class SignInOptions { EMAIL }
 
-
-
 class Session {
     private val apiService by inject<ApiService>()
+    private val dataRepository by inject<DataRepository>()
+
 
     var signInOption: SignInOptions?
     var isLoggedIn: Boolean
@@ -64,13 +68,26 @@ class Session {
                     .subscribe({ response ->
                         if (response.isSuccessful) {
                             emitter.onNext("Session Created")
-                            currUserSession = UserSession(email!!)
+                            val user = response.body() as SignInResponse
+                            currUserSession = UserSession(user.id, user.email)
+                            dataRepository.insertUser(
+                                User(
+                                    user.id,
+                                    user.name,
+                                    user.email
+                                )
+                            )
+                            Log.d("SessionTest", currUserSession.toString())
+
                         } else {
+                            Log.d("SessionTest", "Error")
                             emitter.onError(Throwable())
                         }
                         emitter.onComplete()
                     },
                         {
+                            Log.d("SessionTest", "Error2")
+
                             emitter.onError(it)
                             emitter.onComplete()
                         })

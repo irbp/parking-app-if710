@@ -21,6 +21,8 @@ class SignInViewModel : ViewModel() {
         return session
             .signInWithEmail(email.toString(), password.toString())
             .createSession()!!
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
     }
 
 }

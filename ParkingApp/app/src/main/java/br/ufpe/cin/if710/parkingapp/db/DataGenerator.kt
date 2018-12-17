@@ -17,56 +17,56 @@ class DataGenerator {
 
             parkingsDetails.add(
                 ParkingDetails(
-                    1,
+                    "1",
                     15.00F,
                     Date(1279879379L),
                     Date(1279879879L),
-                    2,
-                    1
+                    "2",
+                    "1"
                 )
             )
 
             parkingsDetails.add(
                 ParkingDetails(
-                    2,
+                    "2",
                     32.00F,
                     Date(1271879379L),
                     Date(1272879879L),
-                    2,
-                    2
+                    "2",
+                    "2"
                 )
             )
 
             parkingsDetails.add(
                 ParkingDetails(
-                    3,
+                    "3",
                     31.00F,
                     Date(1271879579L),
                     Date(1272879779L),
-                    1,
-                    1
+                    "1",
+                    "1"
                 )
             )
 
             parkingsDetails.add(
                 ParkingDetails(
-                    4,
+                    "4",
                     00.00F,
                     Date(1271279579L),
                     Date(1272479779L),
-                    3,
-                    1
+                    "3",
+                    "1"
                 )
             )
 
             parkingsDetails.add(
                 ParkingDetails(
-                    5,
+                    "5",
                     00.00F,
                     Date(1271878379L),
                     Date(1272879879L),
-                    3,
-                    2
+                    "3",
+                    "2"
                 )
             )
 
@@ -78,7 +78,7 @@ class DataGenerator {
 
             parkings.add(
                 Parking(
-                    1,
+                    "1",
                     "Shopping RioMar",
                     15,
                     25.00F,
@@ -92,7 +92,7 @@ class DataGenerator {
 
             parkings.add(
                 Parking(
-                    2,
+                    "2",
                     "Shopping Recife",
                     20,
                     20.00F,
@@ -106,7 +106,7 @@ class DataGenerator {
 
             parkings.add(
                 Parking(
-                    3,
+                    "3",
                     "Shopping Tacaruna",
                     20,
                     15.00F,
@@ -126,7 +126,7 @@ class DataGenerator {
 
             users.add(
                 User(
-                    1,
+                    "1",
                     "Ítalo Paulino",
                     "irbp@cin.ufpe.br"
                 )
@@ -134,7 +134,7 @@ class DataGenerator {
 
             users.add(
                 User(
-                    2,
+                    "2",
                     "Filipe Melo",
                     "fms6@cin.ufpe.br"
                 )

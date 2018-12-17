@@ -9,7 +9,9 @@ data class SignInRequest(
 )
 
 data class SignInResponse(
-    @SerializedName("username") val username: String,
+    @SerializedName("message") val errorMessage: String,
+    @SerializedName("_id") val id: String,
     @SerializedName("name") val name: String,
+    @SerializedName("email") val email: String,
     @SerializedName("password") val password: String
 )

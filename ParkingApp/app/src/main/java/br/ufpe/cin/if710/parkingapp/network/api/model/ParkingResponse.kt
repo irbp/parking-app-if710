@@ -7,7 +7,7 @@ data class GeoPoint(
     @SerializedName("lng") val longitude: Number
 )
 
-data class Parking(
+data class ParkingResponse(
     @SerializedName("name") val name: String,
     @SerializedName("hourPrice") val hourPrice: Number,
     @SerializedName("location") val location: GeoPoint,
