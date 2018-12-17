@@ -21,9 +21,12 @@ import android.widget.TextView
 
 import android.widget.EditText
 import android.widget.Toast
+import br.ufpe.cin.if710.parkingapp.db.entity.Parking
 import br.ufpe.cin.if710.parkingapp.receiver.NotificationBroadcastReceiver
 import br.ufpe.cin.if710.parkingapp.ui.ParkingListActivity
 import br.ufpe.cin.if710.parkingapp.utils.inject
+import java.text.SimpleDateFormat
+import java.util.*
 
 typealias Validator = (String) -> Error?
 
@@ -125,6 +128,8 @@ object Utils {
     const val BOOT_NOTIFICATION_CHANNEL_ID = BuildConfig.APPLICATION_ID + ".channel1"
     const val GEOFENCE_NOTIFICATION_CHANNEL_ID = BuildConfig.APPLICATION_ID + "channel2"
     const val EXTRA_GEOFENCE_NOTIFICATION_ID = "EXTRA_NOTIFICATION_ID"
+    const val EXTRA_PARKING = "PARKING"
+    const val EXTRA_CHECKIN = "CHECKIN"
 
     fun getUniqueId() = ((System.currentTimeMillis() % 10000).toInt())
 
@@ -157,7 +162,7 @@ object Utils {
         return notification
     }
 
-    fun showGeofenceNotification(context: Context, message: String) {
+    fun showGeofenceNotification(context: Context, message: String, parking: Parking) {
         val notificationId = getUniqueId()
         val notificationManager = context
             .getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -173,6 +178,8 @@ object Utils {
         val okIntent = Intent(context, NotificationBroadcastReceiver::class.java).apply {
             action = NotificationBroadcastReceiver.ACTION_ACCEPT_PARKING
             putExtra(EXTRA_GEOFENCE_NOTIFICATION_ID, notificationId)
+            putExtra(EXTRA_CHECKIN, Date())
+            putExtra(EXTRA_PARKING, parking)
         }
         val rejectIntent = Intent(context, NotificationBroadcastReceiver::class.java).apply {
             action = NotificationBroadcastReceiver.ACTION_REJECT_PARKING

@@ -50,7 +50,7 @@ class ParkingListViewModel(application: Application) : AndroidViewModel(applicat
 
     fun getParkingDetailsList(): LiveData<List<ParkingDetails>> = parkingDetailsList
 
-    fun getUserParkings(userId: Int) {
+    fun getUserParkings(userId: String) {
         parkingDetailsList.addSource(dataRepository.getParkingsByUser(userId)) {
             parkingDetailsList.postValue(it)
         }
@@ -94,6 +94,7 @@ class ParkingListViewModel(application: Application) : AndroidViewModel(applicat
                     Log.d(TAG, "Geofences adicionados com sucesso")
                 }
                 .addOnFailureListener {
+                    it.printStackTrace()
                     Log.d(TAG, "Falha ao adicionar os geofences")
                 }
         }
