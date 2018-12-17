@@ -13,7 +13,6 @@ class ParkingApp : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        DataRepository(this)
         DIModule.initialize(this)
 
 //        if (Utils.checkPermissions(this, Manifest.permission.ACCESS_FINE_LOCATION)) {

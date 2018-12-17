@@ -5,7 +5,7 @@ import android.arch.persistence.room.PrimaryKey
 
 @Entity(tableName = "user_table")
 data class User(
-    @PrimaryKey(autoGenerate = true) var id: Int,
+    @PrimaryKey() var id: String,
     var name: String,
     var email: String
 )

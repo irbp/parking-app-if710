@@ -1,5 +1,6 @@
 package br.ufpe.cin.if710.parkingapp
 
+import android.app.Application
 import android.app.*
 import android.content.Context
 import android.content.Intent
@@ -11,42 +12,60 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.app.NotificationCompat
 import android.support.v4.app.NotificationManagerCompat
 import android.text.Editable
+import android.text.TextWatcher
 import android.util.Patterns
+
+import android.widget.Button
+import android.widget.CheckBox
+import android.widget.TextView
+
 import android.widget.EditText
 import android.widget.Toast
 import br.ufpe.cin.if710.parkingapp.receiver.NotificationBroadcastReceiver
 import br.ufpe.cin.if710.parkingapp.ui.ParkingListActivity
 import br.ufpe.cin.if710.parkingapp.utils.inject
 
-object Utils {
-    private val application by inject<Application>()
+typealias Validator = (String) -> Error?
 
-    fun isFieldEmpty(text: Editable?): Boolean = text == null
+object Utils {
+
+    fun TextView.onChange(cb: (String) -> Unit) {
+        this.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                cb(s.toString())
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+    }
+
+    private val application by inject<Application>()
 
     fun isFieldEmpty(text: String): Boolean = text == ""
 
-    fun isPasswordValid(text: Editable?): Boolean = text?.length!! >= 6
-
-    fun isPasswordValid(text: String): Boolean = text?.length!! >= 6
-
-    fun isEmailValid(text: Editable?): Boolean = Patterns.EMAIL_ADDRESS.matcher(text.toString()).matches()
+    fun isPasswordValid(text: String): Boolean = text.length >= 6
 
     fun isEmailValid(text: String): Boolean = Patterns.EMAIL_ADDRESS.matcher(text).matches()
 
-    val emailValidator: (email: String) -> Error? = {
+    val notEmptyValidator: Validator = {
         if (Utils.isFieldEmpty(it)) {
             Error(application.getString(R.string.error_field_required))
-        } else if (!Utils.isEmailValid(it)) {
+        } else {
+            null
+        }
+    }
+
+    val emailValidator: Validator = {
+        if (!Utils.isEmailValid(it)) {
             Error(application.getString(R.string.error_invalid_email))
         } else {
             null
         }
     }
 
-    val passwordValidator: (password: String) -> Error? = {
-        if (Utils.isFieldEmpty(it)) {
-            Error(application.getString(R.string.error_field_required))
-        } else if (!Utils.isPasswordValid(it)) {
+    val passwordValidator: Validator = {
+        if (Utils.isPasswordValid(it)) {
             Error(application.getString(R.string.error_invalid_password))
         } else {
             null
@@ -54,37 +73,53 @@ object Utils {
     }
 
 
-    fun bindValidator(textInput: TextInputEditText, validator: (String) -> Error?){
-        textInput.setOnKeyListener { _, _, _ ->
+    fun minLengthValidator(minLength: Int): Validator {
+        return {
+            if (it.length < minLength) {
+                Error("Quantidade de caracteres precisa ser maior que $minLength")
+            } else {
+                null
+            }
+        }
+    }
+
+    fun bindValidators(textInput: TextView, validator: Array<Validator>) {
+        updateError(textInput, validator)
+
+        textInput.onChange {
             updateError(textInput, validator)
         }
     }
 
-    fun bindValidator(textInput: EditText, validator: (String) -> Error?){
-        textInput.setOnKeyListener { _, _, _ ->
-            updateError(textInput, validator)
+    private fun updateError(textInput: TextView, validator: Array<(String) -> Error?>) {
+        validator.forEach {validator ->
+            val error = validator(textInput.text.toString())
+            if (error != null) {
+                textInput.error = error.message
+            } else {
+                textInput.error = null
+            }
         }
     }
 
-    private fun updateError(textInput: EditText, validator: (String) -> Error?): Boolean{
-        val error = validator(textInput.text.toString())
-        if (error != null) {
-            textInput.error = error.message
-        } else {
-            textInput.error = null
+    fun textViewArrayInvalid(textViews: Array<TextView>): Boolean {
+        var hasInvalid = false
+        textViews.forEach { textView ->
+            if (textView.error != null) {
+                hasInvalid = true
+            }
         }
-        return false
+        return hasInvalid
     }
 
+    fun disableIfInvalid(btn: Button, textViews: Array<TextView>) {
+        btn.isEnabled = !textViewArrayInvalid(textViews)
 
-    private fun updateError(textInput: TextInputEditText, validator: (String) -> Error?): Boolean{
-        val error = validator(textInput.text.toString())
-        if (error != null) {
-            textInput.error = error.message
-        } else {
-            textInput.error = null
+        textViews.forEach {textView ->
+            textView.onChange {
+                btn.isEnabled = !textViewArrayInvalid(textViews)
+            }
         }
-        return false
     }
 
     const val BOOT_NOTIFICATION_CHANNEL_ID = BuildConfig.APPLICATION_ID + ".channel1"
