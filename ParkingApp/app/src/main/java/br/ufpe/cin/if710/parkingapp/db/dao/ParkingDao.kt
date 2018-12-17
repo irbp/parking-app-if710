@@ -13,7 +13,7 @@ interface ParkingDao {
     fun insert(parking: Parking)
 
     @Query("SELECT * FROM parking_table WHERE id = :id")
-    fun getParking(id: Int): Parking
+    fun getParking(id: String): Parking
 
     @Query("SELECT * FROM parking_table")
     fun getAllParkings(): List<Parking>

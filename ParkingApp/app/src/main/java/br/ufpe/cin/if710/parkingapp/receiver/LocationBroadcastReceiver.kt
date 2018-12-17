@@ -36,13 +36,13 @@ class LocationBroadcastReceiver : BroadcastReceiver() {
         if (event.geofenceTransition == Geofence.GEOFENCE_TRANSITION_DWELL) {
             val parking = getFirstParking(event.triggeringGeofences)
             val message = "Você estacionou no " + parking?.name + "?"
-            Utils.showGeofenceNotification(context, message)
+            Utils.showGeofenceNotification(context, message, parking!!)
         }
     }
 
     private fun getFirstParking(triggeringGeofences: List<Geofence>): Parking? {
         val firstGeofence = triggeringGeofences[0]
         val dataRepository = ParkingApp().getDataRepository()
-        return dataRepository.getParking(firstGeofence.requestId.toInt())
+        return dataRepository.getParking(firstGeofence.requestId)
     }
 }

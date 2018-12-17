@@ -1,5 +1,6 @@
 package br.ufpe.cin.if710.parkingapp.ui
 
+import android.Manifest
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +8,8 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import br.ufpe.cin.if710.parkingapp.R
 import br.ufpe.cin.if710.parkingapp.Utils
+import br.ufpe.cin.if710.parkingapp.network.api.Session
+import br.ufpe.cin.if710.parkingapp.utils.inject
 import br.ufpe.cin.if710.parkingapp.viewmodel.SignInViewModel
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import org.jetbrains.anko.toast
@@ -14,10 +17,15 @@ import org.jetbrains.anko.toast
 class SignInActivity : AppCompatActivity() {
     private lateinit var viewModel: SignInViewModel
 
+    private val session by inject<Session>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
+
+        if (!Utils.checkPermissions(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+            Utils.requestPermissions(this@SignInActivity, Manifest.permission.ACCESS_FINE_LOCATION)
+        }
 
         viewModel = ViewModelProviders.of(this).get(SignInViewModel::class.java)
 
@@ -36,6 +44,7 @@ class SignInActivity : AppCompatActivity() {
                 .subscribe(
                     {
                         startActivity(Intent(this@SignInActivity, ParkingListActivity::class.java))
+                        finish()
                         Log.d("SessionTest", "Chegou")
                     },
                     {
@@ -44,4 +53,13 @@ class SignInActivity : AppCompatActivity() {
                 )
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        if (session.getCurrentUserSession() != null){
+            startActivity(Intent(this@SignInActivity, ParkingListActivity::class.java))
+            finish()
+        }
+    }
+
 }

@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         startActivity(Intent(this@MainActivity, SignInActivity::class.java))
-
+        finish()
     }
+
 }

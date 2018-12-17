@@ -10,7 +10,7 @@ data class ParkingDetails(
     @PrimaryKey() var id: String,
     @ColumnInfo(name = "amount_spent") var amountSpent: Float,
     @ColumnInfo(name = "check_in") var checkIn: Date,
-    @ColumnInfo(name = "check_out") var checkOut: Date,
+    @ColumnInfo(name = "check_out") var checkOut: Date?,
     @ColumnInfo(name = "parking_id") var parkingId: String,
     @ColumnInfo(name = "user_id") var userId: String
 )

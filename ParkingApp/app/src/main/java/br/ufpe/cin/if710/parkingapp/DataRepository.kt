@@ -60,7 +60,7 @@ class DataRepository(application: Application) {
             }
     }
 
-    fun getParkingsByUser(userId: Int): LiveData<List<ParkingDetails>> {
+    fun getParkingsByUser(userId: String): LiveData<List<ParkingDetails>> {
         return parkingDetailsDao.getByUser(userId)
     }
 
@@ -68,11 +68,11 @@ class DataRepository(application: Application) {
         parkingDetailsDao.insert(parkingDetails)
     }
 
-    fun deleteParkingDetails(id: Int) {
+    fun deleteParkingDetails(id: String) {
         parkingDetailsDao.deleteEntry(id)
     }
 
-    fun deleteUserParkingDetails(userId: Int) {
+    fun deleteUserParkingDetails(userId: String) {
         parkingDetailsDao.deleteByUser(userId)
     }
 
@@ -81,7 +81,7 @@ class DataRepository(application: Application) {
     }
 
     // User operations
-    fun getUser(id: Int): User {
+    fun getUser(id: String): User {
         return userDao.getUser(id)
     }
 
@@ -89,12 +89,12 @@ class DataRepository(application: Application) {
         userDao.insert(user)
     }
 
-    fun deleteUser(id: Int) {
+    fun deleteUser(id: String) {
         userDao.deleteEntry(id)
     }
 
     // ParkingResponse
-    fun getParking(id: Int): Parking {
+    fun getParking(id: String): Parking {
         return parkingDao.getParking(id)
     }
 

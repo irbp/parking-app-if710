@@ -14,16 +14,16 @@ interface ParkingDetailsDao {
     fun insert(parkingDetails: ParkingDetails)
 
     @Query("DELETE FROM parking_details WHERE id = :id")
-    fun deleteEntry(id: Int)
+    fun deleteEntry(id: String)
 
     @Query("DELETE FROM parking_details WHERE user_id = :userId")
-    fun deleteByUser(userId: Int)
+    fun deleteByUser(userId: String)
 
     @Query("DELETE FROM parking_details")
     fun deleteAll()
 
     @Query("SELECT * FROM parking_details WHERE user_id = :userId ORDER BY check_out DESC")
-    fun getByUser(userId: Int): LiveData<List<ParkingDetails>>
+    fun getByUser(userId: String): LiveData<List<ParkingDetails>>
 
     @Query("SELECT * FROM parking_details")
     fun getAll(): LiveData<List<ParkingDetails>>

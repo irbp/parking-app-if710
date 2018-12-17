@@ -3,10 +3,11 @@ package br.ufpe.cin.if710.parkingapp.db.entity
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
+import java.io.Serializable
 import java.util.*
 
 @Entity(tableName = "parking_table")
-data class Parking(
+data class Parking (
     @PrimaryKey() var id: String,
     var name: String,
     @ColumnInfo(name = "free_minutes") var freeMinutes: Int = 0,
@@ -16,4 +17,4 @@ data class Parking(
     var latitude: Double,
     var longitude: Double,
     var radius: Float
-)
+) : Serializable

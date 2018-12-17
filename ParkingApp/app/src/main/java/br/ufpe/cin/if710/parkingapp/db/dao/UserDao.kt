@@ -19,9 +19,9 @@ interface UserDao {
     fun insert(user: User)
 
     @Query("DELETE FROM user_table WHERE id = :id")
-    fun deleteEntry(id: Int)
+    fun deleteEntry(id: String)
 
     @Query("SELECT * FROM user_table WHERE id = :id")
-    fun getUser(id: Int): User
+    fun getUser(id: String): User
 
 }
