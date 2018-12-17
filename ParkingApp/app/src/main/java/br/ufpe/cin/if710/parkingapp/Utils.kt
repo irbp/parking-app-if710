@@ -3,13 +3,14 @@ package br.ufpe.cin.if710.parkingapp
 import android.app.Application
 import android.app.*
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.support.design.widget.Snackbar
 import android.support.design.widget.TextInputEditText
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.NotificationCompat
-
+import android.support.v4.app.NotificationManagerCompat
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Patterns
@@ -20,7 +21,8 @@ import android.widget.TextView
 
 import android.widget.EditText
 import android.widget.Toast
-
+import br.ufpe.cin.if710.parkingapp.receiver.NotificationBroadcastReceiver
+import br.ufpe.cin.if710.parkingapp.ui.ParkingListActivity
 import br.ufpe.cin.if710.parkingapp.utils.inject
 
 typealias Validator = (String) -> Error?
@@ -120,20 +122,20 @@ object Utils {
         }
     }
 
-    private const val NOTIFICATION_CHANNEL_ID = BuildConfig.APPLICATION_ID + ".channel"
+    const val BOOT_NOTIFICATION_CHANNEL_ID = BuildConfig.APPLICATION_ID + ".channel1"
+    const val GEOFENCE_NOTIFICATION_CHANNEL_ID = BuildConfig.APPLICATION_ID + "channel2"
+    const val EXTRA_GEOFENCE_NOTIFICATION_ID = "EXTRA_NOTIFICATION_ID"
 
     fun getUniqueId() = ((System.currentTimeMillis() % 10000).toInt())
 
-    fun makeNotification(context: Context, message: String): Notification {
+    fun makeNotification(context: Context, message: String, channelId: String, importance: Int, name: String)
+            : Notification {
         val notificationManager = context
             .getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
-            && notificationManager.getNotificationChannel(NOTIFICATION_CHANNEL_ID) == null) {
-            val name = context.getString(R.string.app_name)
-            val channel = NotificationChannel(NOTIFICATION_CHANNEL_ID,
-                name,
-                NotificationManager.IMPORTANCE_MIN)
+            && notificationManager.getNotificationChannel(channelId) == null) {
+            val channel = NotificationChannel(channelId, name, importance)
 
             notificationManager.createNotificationChannel(channel)
         }
@@ -146,13 +148,53 @@ object Utils {
 //        val notificationPendingIntent = stackBuilder
 //            .getPendingIntent(getUniqueId(), PendingIntent.FLAG_UPDATE_CURRENT)
 
-        val notification = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
+        val notification = NotificationCompat.Builder(context, channelId)
             .setSmallIcon(R.mipmap.ic_launcher)
             .setContentTitle(message)
             .setAutoCancel(true)
             .build()
 
         return notification
+    }
+
+    fun showGeofenceNotification(context: Context, message: String) {
+        val notificationId = getUniqueId()
+        val notificationManager = context
+            .getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
+            && notificationManager.getNotificationChannel(GEOFENCE_NOTIFICATION_CHANNEL_ID) == null) {
+            val channel = NotificationChannel(GEOFENCE_NOTIFICATION_CHANNEL_ID, "ParkingApp Location Notify",
+                NotificationManager.IMPORTANCE_HIGH)
+
+            notificationManager.createNotificationChannel(channel)
+        }
+
+        val okIntent = Intent(context, NotificationBroadcastReceiver::class.java).apply {
+            action = NotificationBroadcastReceiver.ACTION_ACCEPT_PARKING
+            putExtra(EXTRA_GEOFENCE_NOTIFICATION_ID, notificationId)
+        }
+        val rejectIntent = Intent(context, NotificationBroadcastReceiver::class.java).apply {
+            action = NotificationBroadcastReceiver.ACTION_REJECT_PARKING
+            putExtra(EXTRA_GEOFENCE_NOTIFICATION_ID, notificationId)
+        }
+        val okPendingIntent = PendingIntent.getBroadcast(context, 0, okIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT)
+        val rejectPendingIntent = PendingIntent.getBroadcast(context, 0, rejectIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT)
+
+        val notification = NotificationCompat.Builder(context, GEOFENCE_NOTIFICATION_CHANNEL_ID)
+            .setSmallIcon(R.mipmap.ic_launcher)
+            .setContentTitle("Um estacionamento foi localizado")
+            .setContentText(message)
+            .addAction(R.drawable.ic_check_black_24dp, "Sim", okPendingIntent)
+            .addAction(R.drawable.ic_not_interested_black_24dp, "Não", rejectPendingIntent)
+            .setAutoCancel(true)
+            .build()
+
+        with(NotificationManagerCompat.from(context)) {
+            notify(notificationId, notification)
+        }
     }
 
     fun Any.toast(context: Context, duration: Int = Toast.LENGTH_LONG): Toast {

@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import br.ufpe.cin.if710.parkingapp.R
+import br.ufpe.cin.if710.parkingapp.Utils
 import br.ufpe.cin.if710.parkingapp.db.entity.ParkingDetails
 import br.ufpe.cin.if710.parkingapp.viewmodel.ParkingListViewModel
 import kotlinx.android.synthetic.main.activity_parking_list.*
