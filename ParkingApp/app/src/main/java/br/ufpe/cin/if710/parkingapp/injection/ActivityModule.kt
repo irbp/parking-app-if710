@@ -8,7 +8,7 @@ import dagger.android.ContributesAndroidInjector
 
 /**
  * TODO:
- * - Implement 
+ * - Implement
  *
  * All activities intended to use Dagger2 @Inject should be listed here.
  *

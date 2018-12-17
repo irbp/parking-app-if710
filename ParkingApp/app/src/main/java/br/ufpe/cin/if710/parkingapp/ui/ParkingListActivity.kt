@@ -4,6 +4,7 @@ import android.Manifest
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
+import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -11,10 +12,10 @@ import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
 import br.ufpe.cin.if710.parkingapp.R
+import br.ufpe.cin.if710.parkingapp.Utils
 import br.ufpe.cin.if710.parkingapp.db.entity.ParkingDetails
 import br.ufpe.cin.if710.parkingapp.viewmodel.ParkingListViewModel
 import kotlinx.android.synthetic.main.activity_parking_list.*
-import android.content.Intent
 
 
 
@@ -62,7 +63,8 @@ class ParkingListActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.preferences -> {
-                // TODO ir para o SharedPreference
+                startActivity(Intent(this@ParkingListActivity, PrefsMenuActivity::class.java))
+
                 return true
             }
         }
