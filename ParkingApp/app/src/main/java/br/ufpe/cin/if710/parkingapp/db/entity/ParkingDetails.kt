@@ -7,6 +7,7 @@ import java.util.*
 
 @Entity(tableName = "parking_details")
 data class ParkingDetails(
+    var name: String,
     @PrimaryKey() var id: String,
     @ColumnInfo(name = "amount_spent") var amountSpent: Float,
     @ColumnInfo(name = "check_in") var checkIn: Date,

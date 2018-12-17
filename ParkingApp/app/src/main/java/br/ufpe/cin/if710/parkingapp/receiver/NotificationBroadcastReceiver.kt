@@ -41,6 +41,7 @@ class NotificationBroadcastReceiver : BroadcastReceiver() {
         if (intent.action == ACTION_ACCEPT_PARKING) {
             dataRepository.insertParkingDetails(
                 ParkingDetails(
+                    parking.name,
                     sdf.format(checkIn),
                     parking.hourPrice,
                     checkIn,
@@ -52,6 +53,7 @@ class NotificationBroadcastReceiver : BroadcastReceiver() {
             val i = Intent(context.applicationContext, ParkingListActivity::class.java)
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             context.startActivity(i)
+
         }
     }
 }

@@ -49,6 +49,7 @@ class DataRepository(application: Application) {
             .subscribe {
                 insertParkingDetails(
                     ParkingDetails(
+                        it.name,
                         it.id,
                         it.amountSpent,
                         it.checkIn,

@@ -2,6 +2,7 @@ package br.ufpe.cin.if710.parkingapp.ui
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,9 +17,8 @@ class ParkingListAdapter(context: Context): RecyclerView.Adapter<ParkingListAdap
     private var parkingsDetails = emptyList<ParkingDetails>()
 
     inner class ParkingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val parkingId: TextView = itemView.txtParkingId
+        val parkingName: TextView = itemView.txtParkingName
         val amountSpent: TextView = itemView.txtAmountSpent
-        val checkIn: TextView = itemView.txtCheckIn
         val checkOut: TextView = itemView.txtCheckOut
     }
 
@@ -31,10 +31,9 @@ class ParkingListAdapter(context: Context): RecyclerView.Adapter<ParkingListAdap
 
     override fun onBindViewHolder(holder: ParkingListAdapter.ParkingViewHolder, position: Int) {
         val current = parkingsDetails[position]
-        holder.parkingId.text = current.id.toString()
-        holder.amountSpent.text = current.amountSpent.toString()
-        holder.checkIn.text = current.checkIn.toString()
-        holder.checkOut.text = current.checkOut.toString()
+        holder.parkingName.text = current.name
+        holder.amountSpent.text = String.format("R$ %.2f", current.amountSpent)
+        holder.checkOut.text = DateFormat.format("dd/MM/yy hh:mm:ss", current.checkOut).toString()
     }
 
     internal fun setParkingsDetails(parkingsDetails: List<ParkingDetails>) {
